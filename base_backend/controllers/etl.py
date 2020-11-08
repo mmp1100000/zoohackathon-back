@@ -5,6 +5,7 @@ from sklearn.utils import shuffle
 import h2o
 from h2o.automl import H2OAutoML
 import networkx as nx
+import community as community_louvain
 
 def csv_to_pandas(csv):
     return pd.read_csv(csv)
@@ -232,5 +233,6 @@ def create_graph_from_df():
     nx.set_node_attributes(G, harmonic_function, "harmonic_function")
     greedy_community = nx.algorithms.community.greedy_modularity_communities(G)
     nx.set_node_attributes(G, greedy_community, "greedy_community")
-
-    return G
+    # Create df
+    df_edges = nx.to_pandas_edgelist(G)
+    return G, df_edges
