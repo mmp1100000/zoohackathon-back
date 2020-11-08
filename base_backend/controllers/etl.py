@@ -234,5 +234,5 @@ def create_graph_from_df():
     greedy_community = nx.algorithms.community.greedy_modularity_communities(G)
     nx.set_node_attributes(G, greedy_community, "greedy_community")
     # Create df
-    df_edges = nx.to_pandas_edgelist(G)
-    return G, df_edges
+    df_edges = nx.to_pandas_edgelist(G).to_json(orient="records")
+    return df_edges
